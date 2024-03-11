@@ -12,7 +12,7 @@ export interface Group {
   friends?: User[];
 }
 
-interface User {
+export interface User {
   "first_name": string,
   "last_name": string
 }

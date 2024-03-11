@@ -1,24 +1,11 @@
-import { Div, List, Panel, PanelHeader, SimpleCell, Spinner, Title, View } from "@vkontakte/vkui";
+import { List, Panel, PanelHeader, Spinner, View } from "@vkontakte/vkui";
 import React, { useEffect, useState } from "react";
 import { GROUPS_LIST } from '../../mock/groups';
-import { CustomModal } from '../CustomModal';
 import Filters from '../Filter';
-import styles from './App.module.css';
 import { getGroups } from "../../utils/Api";
-
-interface Group {
-  id: number;
-  name: string;
-  closed: boolean;
-  avatar_color?: string;
-  members_count: number;
-  friends?: User[];
-}
-
-interface User {
-  "first_name": string,
-  "last_name": string
-}
+import styles from './App.module.css';
+import { Group, User } from "../../utils/InterfaceApiGroups";
+import GroupsList from "../GroupsList";
 
 interface FiltersState {
   privacyType: string;
@@ -35,7 +22,7 @@ function App() {
 
   const [activePanel, setActivePanel] = React.useState('list');
 
-  const [modalIsOpen, setModalIsOpen] = useState(false);
+  const [modalIsOpen, setModalIsOpen] = useState<boolean>(false);
   const [friendsData, setFriendsData] = useState<User[] | undefined>(undefined);
   const [allGroups, setAllGroups] = useState<Group[] | null>(null);
   const [loading, setLoading] = useState<boolean>(true);
@@ -127,29 +114,17 @@ function App() {
                   <Spinner size="large" style={{ margin: '20px 0', display: 'flex', flexDirection: 'column', alignItems: "center", gap: "10px" }} />
                 </div>
               ) : (
-                allGroups && (filtredGroups.length > 0 ? filtredGroups.map((item) => (
-                  <Div key={item.id} className={styles.group}>
-                    <SimpleCell before={<div className={styles["group__avatar"] + " " + (item.avatar_color ? "" : styles["group__avatar_none"])} style={item.avatar_color ? {backgroundColor: item.avatar_color} : {}}></div>}></SimpleCell>
-                    <Title level="1" className={styles["group__title"]}>{item.name}</Title>
-                    <SimpleCell
-                      onClick={() => setActivePanel('nothing')}
-                      expandable="auto"
-                    >
-                      Доступность группы: {item.closed ? "Закрытая" : "Открытая"}
-                    </SimpleCell>
-                    <SimpleCell
-                      onClick={() => setActivePanel('nothing')}
-                      expandable="auto"
-                    >
-                      Количество подписчиков: {item.members_count}
-                    </SimpleCell>
-
-                    <div>
-                      <button onClick={() => openModal({ friends: item.friends, groupName: item.name })} className={styles["group__friend-button"]}>Количество друзей: {item.friends?.length || 0}</button>
-                      <CustomModal isOpen={modalIsOpen} onClose={closeModal} friendsData={friendsData} groupName={groupName}/>
-                    </div>
-                  </Div>
-                )) : (
+                allGroups && (filtredGroups.length > 0 ? (
+                  <GroupsList
+                    groupsData={filtredGroups}
+                    setActivePanel={() => setActivePanel('nothing')}
+                    isOpen={modalIsOpen}
+                    onClose={closeModal}
+                    friendsData={friendsData}
+                    groupName={groupName}
+                    openModal={openModal}
+                  />
+                ) : (
                 <h2 className={styles["not-found"]}>По запросу ничего не найдено &#9785;</h2>
                 )))}
             </List>
