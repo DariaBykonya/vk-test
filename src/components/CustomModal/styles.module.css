@@ -1,0 +1,74 @@
+.modal-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  padding: 40px 10px;
+  background-color: rgba(0,0,0,0.7);
+  overflow: hidden;
+  overflow-y: auto;
+  z-index: 1;
+  transition: opacity 0.3s;
+}
+
+.modal-content {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 100%;
+  max-width: 40.625em;
+  padding: 60px 20px 50px;
+  background-color: #fff;
+  border-radius: 30px;
+  transition: transform 0.3s;
+}
+
+.modal__close-button {
+  background-image: url(/public/images/close-button.svg);
+  width: 30px;
+  height: 30px;
+  position: absolute;
+  top: 20px;
+  right: 26px;
+  border: none;
+  background-color: #fff;
+}
+
+.data-wrapper {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.title {
+  margin: 0;
+  color: rgb(245, 117, 97);
+}
+
+.subtitle {
+  margin: 0;
+  margin-top: 10px;
+}
+
+.list-friends {
+  margin: 0;
+  padding: 0;
+  margin-top: 20px;
+  background-color: rgb(255, 236, 197);
+  padding: 30px;
+  border-radius: 20px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.friend {
+  list-style: none;
+}
