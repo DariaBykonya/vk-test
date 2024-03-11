@@ -1,0 +1,36 @@
+.filter {
+  margin: 0 auto;
+  margin-bottom: 30px;
+  display: flex;
+  justify-content: center;
+  background-color: rgb(245, 117, 97);;
+  width: calc(100% - 225px);
+  border-radius: 30px;
+}
+
+.label {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 40px 20px;
+  font-size: 18px;
+}
+
+.select {
+  background-color: rgb(255, 236, 197);
+  border-radius: 30px;
+  border: none;
+  height: 50px;
+  padding: 5px 10px;
+  appearance: none;
+  text-align: center;
+  width: 125px;
+}
+
+.select:hover {
+  cursor: pointer;
+}
+
+.select:focus-visible {
+  outline: none;
+}
